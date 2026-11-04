@@ -30,11 +30,20 @@ High-fidelity functional prototype for CSC 484.
 
 ## User Tasks
 
-To be completed.
+Task 1: Log a 1 Strength Training day workout session
+He goes to work out in the gym whenever he finds a slot of time between classes and clubs. He has regular IM games twice a week. He wants to track his workouts 
+
+Task 2: Create a group and view the group leaderboard 
+Shohei has been working out more consistently and wants to see how many points he has earned from his workouts and his current streak. He also wants to compare his progress with friends in his new gym group.
+
+Task 3: Post your workout to a social thread Shohei just finished a workout, and hit a personal milestone! 
+He wants to post this logged session so that his friends can see it on their feed. 
 
 ## Team Contributions
 
-- **[Name]:** To be completed.
-- **[Name]:** To be completed.
-- **[Name]:** To be completed.
-- **[Name]:** To be completed.
+- **[Aidan Lui]:** To be completed.
+- **[Briggs Murphy]:** To be completed.
+- **[Haixin Huang]:** To be completed.
+- **[James Oden]:** To be completed.
+- **[Jonathan Fitzgerald]:** To be completed.
+- **[Laleina Mercado]:** To be completed.
