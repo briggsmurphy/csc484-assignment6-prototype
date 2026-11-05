@@ -1,16 +1,49 @@
-# React + Vite
+# CSC 484 – Assignment 6
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description
+High-fidelity functional prototype for CSC 484.
 
-Currently, two official plugins are available:
+## Technologies
+- React
+- JavaScript
+- HTML/CSS
+- Vite
+- LocalStorage
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Installation and Setup
 
-## React Compiler
+1. Clone the repository.
+2. Navigate to the project directory.
+3. Install dependencies:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+   ```bash
+   npm install
+   ```
 
-## Expanding the ESLint configuration
+4. Start the development server:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+   ```bash
+   npm run dev
+   ```
+
+5. Open the local URL provided by Vite in your browser.
+
+## User Tasks
+
+Task 1: Log a 1 Strength Training day workout session
+He goes to work out in the gym whenever he finds a slot of time between classes and clubs. He has regular IM games twice a week. He wants to track his workouts 
+
+Task 2: Create a group and view the group leaderboard 
+Shohei has been working out more consistently and wants to see how many points he has earned from his workouts and his current streak. He also wants to compare his progress with friends in his new gym group.
+
+Task 3: Post your workout to a social thread Shohei just finished a workout, and hit a personal milestone! 
+He wants to post this logged session so that his friends can see it on their feed. 
+
+## Team Contributions
+
+- **[Aidan Lui]:** To be completed.
+- **[Briggs Murphy]:** To be completed.
+- **[Haixin Huang]:** To be completed.
+- **[James Oden]:** To be completed.
+- **[Jonathan Fitzgerald]:** To be completed.
+- **[Laleina Mercado]:** To be completed.
