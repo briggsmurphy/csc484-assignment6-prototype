@@ -2,7 +2,7 @@
 function Social() {
   return (
     <main>
-      <h1>Social Feede</h1>
+      <h1>Social Feed</h1>
     </main>
   );
 }
