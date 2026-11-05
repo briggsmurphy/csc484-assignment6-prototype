@@ -2,7 +2,7 @@
 function Leaderboard() {
   return (
     <main>
-      <h1>Leaderboarde</h1>
+      <h1>Leaderboard</h1>
     </main>
   );
 }
