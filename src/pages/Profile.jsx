@@ -1,8 +1,10 @@
 //Profile.jsx
+import PageHeader from "../components/PageHeader";
+
 function Profile() {
   return (
-    <main>
-      <h1>Profile</h1>
+    <main className="page">
+      <PageHeader title="Profile" />
     </main>
   );
 }

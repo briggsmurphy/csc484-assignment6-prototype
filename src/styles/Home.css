@@ -1,0 +1,7 @@
+.home__add-workout {
+  position: fixed;
+  bottom: calc(var(--navbar-height) + 73px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}

@@ -16,7 +16,7 @@ function App() {
       {activePage === "Leaderboard" && <Leaderboard />}
       {activePage === "Profile" && <Profile />}
 
-      <Navbar setActivePage={setActivePage} />
+      <Navbar activePage={activePage} setActivePage={setActivePage} />
     </>
   );
 }

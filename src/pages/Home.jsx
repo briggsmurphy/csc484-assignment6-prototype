@@ -1,8 +1,15 @@
 //Home.jsx
+import PageHeader from "../components/PageHeader";
+import AddWorkoutButton from "../components/AddWorkoutButton";
+import "../styles/Home.css";
+
 function Home() {
   return (
-    <main>
-      <h1>Workout History</h1>
+    <main className="page">
+      <PageHeader title="Workout History" />
+      <div className="home__add-workout">
+        <AddWorkoutButton />
+      </div>
     </main>
   );
 }

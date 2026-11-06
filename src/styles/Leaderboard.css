@@ -1,0 +1,77 @@
+.leaderboard {
+  padding: 20px 28px 0;
+  font-size: 14px;
+}
+
+.leaderboard__stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.leaderboard__stat {
+  height: 116px;
+  padding-top: 11px;
+  box-sizing: border-box;
+  background: var(--color-surface);
+  text-align: center;
+}
+
+.leaderboard__stat-value {
+  margin-top: 17px;
+  font-size: 24px;
+}
+
+.leaderboard__filter-label {
+  margin-top: 21px;
+}
+
+.leaderboard__filter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 60px;
+  margin-top: 6px;
+  padding: 5px 8px 5px 13px;
+  box-sizing: border-box;
+  background: var(--color-surface);
+  font-size: 20px;
+  text-align: left;
+}
+
+.leaderboard__filter img {
+  display: block;
+}
+
+.leaderboard__list {
+  display: flex;
+  flex-direction: column;
+  gap: 19px;
+  margin: 19px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.leaderboard__row {
+  display: flex;
+  align-items: center;
+  height: 109px;
+  padding-left: 23px;
+  box-sizing: border-box;
+  background: var(--color-surface);
+}
+
+.leaderboard__row--you {
+  border: 1px solid var(--color-ink);
+}
+
+.leaderboard__rank {
+  width: 35px;
+  font-size: 32px;
+}
+
+.leaderboard__row img {
+  display: block;
+  margin-right: 20px;
+}
