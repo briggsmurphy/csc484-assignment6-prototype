@@ -1,0 +1,39 @@
+.page-header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  height: 82px;
+  background: var(--color-bg);
+}
+
+.page-header--with-action {
+  height: 79px;
+}
+
+.page-header__title {
+  position: absolute;
+  top: 37px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 32px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.page-header--with-action .page-header__title {
+  top: 26px;
+}
+
+.page-header__action {
+  position: absolute;
+  top: 23px;
+  left: 27px;
+}
+
+.page-header__line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+}
