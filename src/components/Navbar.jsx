@@ -1,31 +1,38 @@
-import groupIcon from "../assets/group_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg";
-import homeIcon from "../assets/home_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24 (1).svg";
-import personIcon from "../assets/person_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg";
-import trophyIcon from "../assets/trophy_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg";
+import homeIcon from "../assets/figma/nav-home.svg";
+import socialIcon from "../assets/figma/nav-social.svg";
+import leaderboardIcon from "../assets/figma/nav-leaderboard.svg";
+import profileIcon from "../assets/figma/nav-profile.svg";
+import dividerLine from "../assets/figma/nav-divider.svg";
 import "./Navbar.css";
 
-function Navbar({ setActivePage }) {
+const tabs = [
+  { page: "Home", icon: homeIcon },
+  { page: "Social", icon: socialIcon },
+  { page: "Leaderboard", icon: leaderboardIcon },
+  { page: "Profile", icon: profileIcon },
+];
+
+function Navbar({ activePage, setActivePage }) {
   return (
     <nav className="navbar">
-      <button onClick={() => setActivePage("Home")}>
-        <img src={homeIcon} alt="" />
-        Home
-      </button>
-
-      <button onClick={() => setActivePage("Social")}>
-        <img src={groupIcon} alt="" />
-        Social
-      </button>
-
-      <button onClick={() => setActivePage("Leaderboard")}>
-        <img src={trophyIcon} alt="" />
-        Leaderboard
-      </button>
-
-      <button onClick={() => setActivePage("Profile")}>
-        <img src={personIcon} alt="" />
-        Profile
-      </button>
+      {tabs.map(({ page, icon }, index) => (
+        <button
+          key={page}
+          className={page === activePage ? "navbar__tab navbar__tab--active" : "navbar__tab"}
+          aria-current={page === activePage ? "page" : undefined}
+          onClick={() => setActivePage(page)}
+        >
+          {index > 0 && (
+            <span className="navbar__divider rotated-line">
+              <img src={dividerLine} alt="" />
+            </span>
+          )}
+          <span className="navbar__icon">
+            <img src={icon} alt="" />
+          </span>
+          {page}
+        </button>
+      ))}
     </nav>
   );
 }

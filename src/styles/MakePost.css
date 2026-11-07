@@ -1,0 +1,78 @@
+.make-post__header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 68px;
+  border-bottom: 1px solid var(--color-ink);
+}
+
+.make-post__header h1 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.make-post__back {
+  position: absolute;
+  left: 25px;
+  font-size: 32px;
+}
+
+.make-post__form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 36px 25px 40px;
+}
+
+.make-post__form select,
+.make-post__form input,
+.make-post__form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  border: none;
+  border-radius: 0;
+  background: var(--color-surface);
+  font: inherit;
+  font-size: 14px;
+}
+
+.make-post__form select,
+.make-post__form input {
+  height: 40px;
+}
+
+.make-post__form textarea {
+  height: 119px;
+  resize: vertical;
+}
+
+.make-post__photo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 154px;
+  background: var(--color-placeholder);
+  color: white;
+  font-size: 13px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.make-post__photo input {
+  display: none;
+}
+
+.make-post__camera {
+  font-size: 38px;
+}
+
+.make-post__submit {
+  height: 40px;
+  border: 1px solid var(--color-ink);
+  background: var(--color-surface);
+  font-size: 14px;
+}
