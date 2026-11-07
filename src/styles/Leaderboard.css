@@ -48,21 +48,17 @@
 }
 
 .leaderboard__filter {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: block;
   width: 100%;
   height: 60px;
   margin-top: 6px;
-  padding: 5px 8px 5px 13px;
+  padding: 5px 40px 5px 13px;
   box-sizing: border-box;
-  background: var(--color-surface);
+  appearance: none;
+  background-color: var(--color-surface);
   font-size: 20px;
   text-align: left;
-}
-
-.leaderboard__filter img {
-  display: block;
+  cursor: pointer;
 }
 
 .leaderboard__list {
@@ -111,36 +107,7 @@
   color: var(--color-bg);
   font-weight: 700;
   font-size: 16px;
-}
-
-.leaderboard__group-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 16px;
-  border-radius: 12px;
-  background: var(--color-surface-active);
-}
-
-.leaderboard__group-form label {
-  font-weight: 600;
-}
-
-.leaderboard__group-form input {
-  box-sizing: border-box;
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #aaa;
-  border-radius: 8px;
-  font: inherit;
-}
-
-.leaderboard__group-form button {
-  padding: 12px;
-  border-radius: 30px;
-  background: var(--color-button);
-  color: var(--color-bg);
-  font-weight: 700;
+  cursor: pointer;
 }
 
 .leaderboard__groups {
@@ -160,8 +127,133 @@
 }
 
 .leaderboard__group-item {
+  width: 100%;
   padding: 18px;
   background: var(--color-surface);
   font-size: 16px;
   font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.leaderboard__group-ranking {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.leaderboard__group-ranking>button {
+  align-self: flex-start;
+  padding: 8px 0;
+  font-size: 14px;
+}
+
+.leaderboard__group-ranking h2 {
+  font-size: 22px;
+}
+
+/* Create Group screen */
+
+.leaderboard__create-screen {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.leaderboard__create-screen>label {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.leaderboard__group-name-input {
+  width: 100%;
+  height: 44px;
+  padding: 8px;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 0;
+  background: var(--color-surface);
+  font: inherit;
+}
+
+.leaderboard__friend-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.leaderboard__friend-search input {
+  width: 100%;
+  height: 44px;
+  padding: 8px 42px 8px 12px;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 0;
+  background: var(--color-surface);
+  font: inherit;
+}
+
+.leaderboard__friend-search span {
+  position: absolute;
+  right: 15px;
+  font-size: 27px;
+  color: #666;
+  pointer-events: none;
+}
+
+.leaderboard__friend-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.leaderboard__friend {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 65px;
+  padding: 8px 12px;
+  box-sizing: border-box;
+  background: var(--color-surface);
+  cursor: pointer;
+}
+
+.leaderboard__friend img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.leaderboard__friend span {
+  flex: 1;
+}
+
+.leaderboard__friend input {
+  width: 22px;
+  height: 22px;
+  accent-color: var(--color-button);
+  cursor: pointer;
+}
+
+.leaderboard__friend input:disabled {
+  cursor: default;
+}
+
+.leaderboard__create-submit {
+  width: 100%;
+  min-height: 52px;
+  margin-top: 24px;
+  border-radius: 0;
+  background: var(--color-button);
+  color: var(--color-bg);
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.leaderboard__cancel {
+  padding: 8px;
+  font-size: 14px;
+  cursor: pointer;
 }
