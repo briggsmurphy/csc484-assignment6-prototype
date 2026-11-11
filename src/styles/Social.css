@@ -1,0 +1,11 @@
+.social__new-post img {
+  display: block;
+}
+
+.social__feed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 156px;
+  padding-top: 62px;
+}

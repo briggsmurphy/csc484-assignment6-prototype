@@ -1,4 +1,5 @@
-/* 1. DESIGN TOKENS */
+
+/* DESIGN TOKENS */
 
 :root {
   /* Brand colors */
@@ -6,9 +7,16 @@
   --color-primary-dark: #15803d;
   --color-primary-light: #dcfce7;
 
-  /* Background colors */
-  --color-background: #f7faf7;
+  /* Existing component color variables */
+  --color-ink: #14251b;
+  --color-bg: #f7faf7;
   --color-surface: #ffffff;
+  --color-surface-active: #dcfce7;
+  --color-placeholder: #a3b3a7;
+  --color-button: #16a34a;
+
+  /* Additional background colors */
+  --color-background: #f7faf7;
   --color-surface-secondary: #eef5ef;
 
   /* Text colors */
@@ -54,18 +62,24 @@
   /* Shadows */
   --shadow-card: 0 2px 8px rgba(20, 37, 27, 0.06);
 
+  /* App dimensions - preserved from main */
+  --app-width: 440px;
+  --navbar-height: 101px;
+
   /* Global appearance */
   font-family: var(--font-family);
   font-size: var(--font-size-base);
+  line-height: normal;
   color: var(--color-text);
   background-color: var(--color-background);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* 2. GLOBAL RESET */
+/* GLOBAL RESET */
 
 *,
 *::before,
@@ -80,20 +94,21 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  min-height: 100vh;
+  min-height: 100dvh;
   background-color: #e9eeea;
 }
 
-/* Mobile app container */
+/* MOBILE APP CONTAINER */
+
 #root {
   width: 100%;
-  max-width: 440px;
+  max-width: var(--app-width);
   min-height: 100dvh;
   margin: 0 auto;
   background-color: var(--color-background);
 }
 
-/* 3. TYPOGRAPHY */
+/* TYPOGRAPHY */
 
 h1,
 h2,
@@ -127,7 +142,7 @@ p {
   line-height: 1.5;
 }
 
-/* 4. BASE ELEMENTS */
+/* BASE ELEMENTS */
 
 button,
 input,
@@ -137,6 +152,10 @@ textarea {
 }
 
 button {
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
   cursor: pointer;
 }
 
@@ -154,14 +173,30 @@ svg {
   max-width: 100%;
 }
 
-/* 5. ACCESSIBILITY */
+/* ACCESSIBILITY */
 
 :focus-visible {
   outline: 2px solid var(--color-primary-dark);
   outline-offset: 3px;
 }
 
-/* 6. MOBILE RESPONSIVENESS */
+/* EXISTING COMPONENT UTILITIES */
+
+/* Preserved from main for Figma-exported line elements */
+.rotated-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 0;
+}
+
+.rotated-line img {
+  flex: none;
+  display: block;
+  transform: rotate(90deg);
+}
+
+/* MOBILE RESPONSIVENESS */
 
 @media (max-width: 480px) {
   :root {
