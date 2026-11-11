@@ -1,122 +1,76 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import Social from "./pages/Social";
+import Leaderboard from "./pages/Leaderboard";
+import Profile from "./pages/Profile";
+import MakePost from "./pages/MakePost";
+
+const startingPosts = [
+  {
+    id: 1,
+    author: "Shohei",
+    rank: 17,
+    title: "Chest Day",
+    caption: "",
+    time: "Today at 12:09 AM",
+    location: "Rec Center",
+    hasPhoto: true,
+    activity: "strength training",
+    duration: "1h 31m",
+    calories: "500 kcal",
+    points: 20,
+  },
+  {
+    id: 2,
+    author: "Mookie",
+    rank: 50,
+    title: "IM Soccer Game",
+    caption: "",
+    time: "Yesterday at 7:30 PM",
+    location: "Lower Sports Field",
+    hasPhoto: false,
+    activity: "sports",
+    duration: "1h",
+    calories: "500 kcal",
+    points: 50,
+  },
+];
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [activePage, setActivePage] = useState("Home");
+  const [posts, setPosts] = useState(startingPosts);
+
+  function handleCreatePost(post) {
+    setPosts([post, ...posts]);
+    setActivePage("Social");
+  }
 
   return (
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+      {activePage === "Home" && <Home />}
 
-      <div className="ticks"></div>
+      {activePage === "Social" && (
+        <Social
+          posts={posts}
+          onMakePost={() => setActivePage("MakePost")}
+        />
+      )}
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+      {activePage === "MakePost" && (
+        <MakePost
+          onBack={() => setActivePage("Social")}
+          onCreatePost={handleCreatePost}
+        />
+      )}
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+      {activePage === "Leaderboard" && <Leaderboard />}
+      {activePage === "Profile" && <Profile />}
+
+      <Navbar setActivePage={setActivePage} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
