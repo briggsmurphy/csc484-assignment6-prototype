@@ -44,6 +44,6 @@ He wants to post this logged session so that his friends can see it on their fee
 - **[Aidan Lui]:** To be completed.
 - **[Briggs Murphy]:** To be completed.
 - **[Haixin Huang]:** To be completed.
-- **[James Oden]:** To be completed.
+- **[James Oden]:** Worked on basic layout and button functionality of app..
 - **[Jonathan Fitzgerald]:** To be completed.
 - **[Laleina Mercado]:** To be completed.
