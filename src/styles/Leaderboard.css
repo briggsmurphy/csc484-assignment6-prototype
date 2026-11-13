@@ -1,6 +1,6 @@
 .leaderboard {
   padding: 20px 28px 0;
-  font-size: 14px;
+  font-size: var(--font-size-sm);
 }
 
 .leaderboard__tabs {
@@ -9,19 +9,21 @@
   gap: 5px;
   margin-bottom: 22px;
   padding: 4px;
+  border-radius: var(--radius-md);
   background: var(--color-surface);
 }
 
 .leaderboard__tab {
   height: 42px;
-  font-size: 16px;
-  font-weight: 600;
-  border-radius: 4px;
+  background: #e5e7eb;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--radius-sm);
 }
 
 .leaderboard__tab--active {
   background: var(--color-button);
-  color: var(--color-bg);
+  color: var(--color-text-inverse);
 }
 
 .leaderboard__stats {
@@ -31,16 +33,21 @@
 }
 
 .leaderboard__stat {
-  height: 116px;
-  padding-top: 11px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 90px;
+  padding: 16px;
   box-sizing: border-box;
-  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  background: #e6f7ec;
   text-align: center;
 }
 
 .leaderboard__stat-value {
-  margin-top: 17px;
+  margin-top: 4px;
   font-size: 24px;
+  font-weight: var(--font-weight-bold);
 }
 
 .leaderboard__filter-label {
@@ -50,13 +57,14 @@
 .leaderboard__filter {
   display: block;
   width: 100%;
-  height: 60px;
+  height: 46px;
   margin-top: 6px;
-  padding: 5px 40px 5px 13px;
+  padding: 5px 40px 5px 10px;
   box-sizing: border-box;
   appearance: none;
-  background-color: var(--color-surface);
-  font-size: 20px;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%2314251b' stroke-width='2'%3E%3Cpath d='M1 1l5 5 5-5'/%3E%3C/svg%3E") no-repeat right 12px center;
+  font-size: var(--font-size-lg);
   text-align: left;
   cursor: pointer;
 }
@@ -76,16 +84,19 @@
   height: 109px;
   padding-left: 23px;
   box-sizing: border-box;
+  border-radius: var(--radius-md);
+  border: 1px solid #e5e7eb;
   background: var(--color-surface);
 }
 
 .leaderboard__row--you {
-  border: 1px solid var(--color-ink);
+  background: #e6f7ec;
+  border: 2px solid var(--color-ink);
 }
 
 .leaderboard__rank {
   width: 35px;
-  font-size: 32px;
+  font-size: var(--font-size-xl);
 }
 
 .leaderboard__row img {
@@ -102,11 +113,11 @@
 .leaderboard__create-group {
   width: 100%;
   padding: 14px;
-  border-radius: 30px;
+  border-radius: var(--radius-pill);
   background: var(--color-button);
-  color: var(--color-bg);
-  font-weight: 700;
-  font-size: 16px;
+  color: var(--color-text-inverse);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-base);
   cursor: pointer;
 }
 
@@ -117,21 +128,22 @@
 }
 
 .leaderboard__groups-title {
-  font-size: 18px;
-  font-weight: 700;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
 }
 
 .leaderboard__empty {
-  color: #666;
+  color: var(--color-text-secondary);
   padding: 15px 0;
 }
 
 .leaderboard__group-item {
   width: 100%;
   padding: 18px;
+  border-radius: var(--radius-md);
   background: var(--color-surface);
-  font-size: 16px;
-  font-weight: 600;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
   text-align: left;
   cursor: pointer;
 }
@@ -145,7 +157,7 @@
 .leaderboard__group-ranking>button {
   align-self: flex-start;
   padding: 8px 0;
-  font-size: 14px;
+  font-size: var(--font-size-sm);
 }
 
 .leaderboard__group-ranking h2 {
@@ -157,21 +169,24 @@
 .leaderboard__create-screen {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 4px;
+  /* fill the screen (minus 82px header, 20px top padding, navbar) so the buttons sit at the bottom even with few results; -24px cancels .page's bottom padding */
+  min-height: calc(100dvh - 82px - 20px - var(--navbar-height));
+  margin-bottom: -24px;
 }
 
 .leaderboard__create-screen>label {
-  margin-top: 10px;
-  font-size: 14px;
+  margin-top: 12px;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
 }
 
 .leaderboard__group-name-input {
   width: 100%;
-  height: 44px;
-  padding: 8px;
+  padding: 12px;
   box-sizing: border-box;
-  border: none;
-  border-radius: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
   background: var(--color-surface);
   font: inherit;
 }
@@ -184,11 +199,10 @@
 
 .leaderboard__friend-search input {
   width: 100%;
-  height: 44px;
-  padding: 8px 42px 8px 12px;
+  padding: 12px 42px 12px 12px;
   box-sizing: border-box;
-  border: none;
-  border-radius: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
   background: var(--color-surface);
   font: inherit;
 }
@@ -197,7 +211,7 @@
   position: absolute;
   right: 15px;
   font-size: 27px;
-  color: #666;
+  color: var(--color-text-secondary);
   pointer-events: none;
 }
 
@@ -215,13 +229,18 @@
   min-height: 65px;
   padding: 8px 12px;
   box-sizing: border-box;
+  border-radius: var(--radius-md);
   background: var(--color-surface);
   cursor: pointer;
 }
 
+.leaderboard__friend:has(input:checked) {
+  background: #e6f7ec;
+}
+
 .leaderboard__friend img {
-  width: 42px;
-  height: 42px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -241,19 +260,34 @@
   cursor: default;
 }
 
+/* stays pinned just above the fixed navbar while the friend list scrolls */
+.leaderboard__create-actions {
+  position: sticky;
+  bottom: var(--navbar-height);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 12px;
+  background: var(--color-background);
+}
+
 .leaderboard__create-submit {
   width: 100%;
-  min-height: 52px;
-  margin-top: 24px;
-  border-radius: 0;
+  padding: 18px;
+  font-size: var(--font-size-lg);
+  border-radius: var(--radius-pill);
   background: var(--color-button);
-  color: var(--color-bg);
-  font-size: 20px;
+  color: var(--color-text-inverse);
+  font-weight: var(--font-weight-bold);
   cursor: pointer;
 }
 
 .leaderboard__cancel {
-  padding: 8px;
-  font-size: 14px;
+  width: 100%;
+  margin-top: 4px;
+  padding: 6px;
+  font-size: var(--font-size-base);
+  border-radius: var(--radius-pill);
   cursor: pointer;
 }

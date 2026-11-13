@@ -1,7 +1,6 @@
 import { useState } from "react";
 import PageHeader from "../components/PageHeader";
 import avatar from "../assets/figma/avatar.svg";
-import caretDown from "../assets/figma/caret-down.svg";
 import "../styles/Leaderboard.css";
 
 const stats = [
@@ -163,12 +162,6 @@ const filteredFriends = friends.filter((friend) =>
               className="leaderboard__filter"
               value={filterBy}
               onChange={(event) => setFilterBy(event.target.value)}
-              style={{
-                backgroundImage: `url(${caretDown})`,
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "right 12px center",
-                backgroundSize: "16px",
-              }}
             >
               <option value="Cal Poly Students">Cal Poly Students</option>
               <option value="Friends">Friends</option>
@@ -329,6 +322,7 @@ const filteredFriends = friends.filter((friend) =>
               )}
             </div>
 
+            <div className="leaderboard__create-actions">
             <button
               className="leaderboard__create-submit"
               type="submit"
@@ -348,6 +342,7 @@ const filteredFriends = friends.filter((friend) =>
             >
               Cancel
             </button>
+            </div>
           </form>
         )}
       </div>

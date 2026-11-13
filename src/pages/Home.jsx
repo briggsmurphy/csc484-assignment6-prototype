@@ -71,6 +71,7 @@ function Home({ workouts, setWorkouts }) {
           <button type="submit">Save Workout</button>
 
           <button
+            className="workout-form__cancel"
             type="button"
             onClick={() => {
               setShowForm(false);

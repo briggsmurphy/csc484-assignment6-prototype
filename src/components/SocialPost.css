@@ -2,7 +2,10 @@
   width: 378px;
   max-width: 100%;
   padding-bottom: 10px;
-  background: var(--color-surface);
+  background: var(--color-surface-active);
+  border-radius: var(--radius-md);
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
   text-align: center;
 }
 
@@ -15,24 +18,35 @@
 
 .social-post__author img {
   display: block;
+  width: 36px;
+  height: 36px;
 }
 
 .social-post__name {
-  font-size: 32px;
-  font-weight: 400;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-regular);
 }
 
 .social-post__rank {
   padding: 5px 10px;
   border: 2px solid var(--color-ink);
-  border-radius: 20px;
-  font-size: 20px;
+  border-radius: var(--radius-pill);
+  font-size: var(--font-size-sm);
+}
+
+.social-post__content {
+  margin-top: 15px;
+  background: var(--color-surface);
+}
+
+.social-post__details {
+  padding: 12px 0 0;
 }
 
 .social-post__title {
-  margin: 15px 0 0;
+  margin: 0;
   font-size: 24px;
-  font-weight: 400;
+  font-weight: var(--font-weight-bold);
 }
 
 .social-post__meta {
@@ -51,6 +65,7 @@
 .social-post__stats {
   width: 311px;
   margin: 38px auto 0;
+  padding: 0 0 12px;
   font-size: 15px;
 }
 
@@ -71,7 +86,7 @@
 }
 
 .social-post__stat-value {
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
 }
 
 .social-post__stat-divider {

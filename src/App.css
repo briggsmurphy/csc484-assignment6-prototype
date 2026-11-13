@@ -1,3 +1,7 @@
+:root {
+  --navbar-height: 80px; /* overrides index.css; every page offset reads this */
+}
+
 .page {
   padding-bottom: calc(var(--navbar-height) + 24px);
 }

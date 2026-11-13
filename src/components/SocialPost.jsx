@@ -31,30 +31,34 @@ function SocialPost({ post }) {
         <span className="social-post__rank">#{post.rank}</span>
       </div>
 
-      <h3 className="social-post__title">{post.title}</h3>
-      <p className="social-post__meta">
-        {post.time} | {post.location}
-      </p>
-
-      {post.hasPhoto && post.photoUrl && (
-        <img
-          className="social-post__photo"
-          src={post.photoUrl}
-          alt="Workout"
-        />
-      )}
-
-      <div className="social-post__stats">
-        <div className="social-post__stat-row">
-          <Stat label="activity" value={post.activity} />
-          <StatDivider />
-          <Stat label="duration" value={post.duration} />
+      <div className="social-post__content">
+        <div className="social-post__details">
+          <h3 className="social-post__title">{post.title}</h3>
+          <p className="social-post__meta">
+            {post.time} | {post.location}
+          </p>
         </div>
-        <img className="social-post__stats-line" src={dividerHorizontal} alt="" />
-        <div className="social-post__stat-row">
-          <Stat label="calories burned" value={post.calories} />
-          <StatDivider />
-          <Stat label="points earned" value={post.points} />
+
+        {post.hasPhoto && post.photoUrl && (
+          <img
+            className="social-post__photo"
+            src={post.photoUrl}
+            alt="Workout"
+          />
+        )}
+
+        <div className="social-post__stats">
+          <div className="social-post__stat-row">
+            <Stat label="activity" value={post.activity} />
+            <StatDivider />
+            <Stat label="duration" value={post.duration} />
+          </div>
+          <img className="social-post__stats-line" src={dividerHorizontal} alt="" />
+          <div className="social-post__stat-row">
+            <Stat label="calories burned" value={post.calories} />
+            <StatDivider />
+            <Stat label="points earned" value={post.points} />
+          </div>
         </div>
       </div>
 
