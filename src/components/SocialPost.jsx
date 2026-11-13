@@ -36,7 +36,13 @@ function SocialPost({ post }) {
         {post.time} | {post.location}
       </p>
 
-      {post.hasPhoto && <div className="social-post__photo" />}
+      {post.hasPhoto && post.photoUrl && (
+        <img
+          className="social-post__photo"
+          src={post.photoUrl}
+          alt="Workout"
+        />
+      )}
 
       <div className="social-post__stats">
         <div className="social-post__stat-row">

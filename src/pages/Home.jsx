@@ -1,11 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PageHeader from "../components/PageHeader";
 import AddWorkoutButton from "../components/AddWorkoutButton";
 import "../styles/Home.css";
 
 function Home() {
   const [showForm, setShowForm] = useState(false);
-  const [workouts, setWorkouts] = useState([]);
+
+  // Load previously saved workouts when Home opens.
+  const [workouts, setWorkouts] = useState(() => {
+    const savedWorkouts = sessionStorage.getItem("workouts");
+    return savedWorkouts ? JSON.parse(savedWorkouts) : [];
+  });
+
+  // Save workouts whenever the list changes.
+  useEffect(() => {
+    sessionStorage.setItem("workouts", JSON.stringify(workouts));
+  }, [workouts]);
 
   const [activity, setActivity] = useState("Strength Training");
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));

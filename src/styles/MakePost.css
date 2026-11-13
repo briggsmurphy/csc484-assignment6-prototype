@@ -76,3 +76,10 @@
   background: var(--color-surface);
   font-size: 14px;
 }
+
+.make-post__preview {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}

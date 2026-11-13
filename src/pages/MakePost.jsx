@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import "../styles/MakePost.css";
 
@@ -74,10 +75,15 @@ function MakePost({ onBack, onCreatePost }) {
           <input
             type="file"
             accept="image/*"
-            onChange={(event) => setPhoto(event.target.files[0])}
+            onChange={(event) => setPhoto(event.target.files[0] || null)}
           />
+
           {photo ? (
-            <span>{photo.name}</span>
+            <img
+              className="make-post__preview"
+              src={URL.createObjectURL(photo)}
+              alt="Selected workout"
+            />
           ) : (
             <>
               <span className="make-post__camera">📷</span>
