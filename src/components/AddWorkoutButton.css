@@ -33,5 +33,14 @@ img.add-workout-button__line {
 }
 
 .add-workout-button__line.rotated-line {
-  height: 47px;
+  position: absolute;
+  width: 47px;
+  height: 5px;
+}
+
+.add-workout-button__line.rotated-line img {
+  display: block;
+  width: 47px;
+  height: 5px;
+  transform: rotate(90deg);
 }
