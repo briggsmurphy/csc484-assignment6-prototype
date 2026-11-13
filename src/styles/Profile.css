@@ -14,16 +14,16 @@
 
 .profile__name {
   font-size: 26px;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
 }
 
 .profile__logout {
   margin-top: 40px;
   width: 220px;
   height: 55px;
-  border-radius: 40px;
+  border-radius: var(--radius-pill);
   background: var(--color-button);
-  color: var(--color-bg);
-  font-size: 18px;
-  font-weight: 700;
+  color: var(--color-text-inverse);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
 }

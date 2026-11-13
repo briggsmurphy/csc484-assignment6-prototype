@@ -17,24 +17,38 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 7px;
-  padding-top: 19px;
-  font-size: 12px;
+  gap: 4px;
+  padding-top: 16px;
+  font-size: var(--font-size-xs);
 }
 
 .navbar__tab--active {
-  background: var(--color-surface-active);
+  background: #e6f7ec;
+  color: var(--color-primary-dark);
+}
+
+/* recolor: slide the img out of the clipped box and drop a green copy of its shape back in */
+.navbar__tab--active .navbar__icon {
+  overflow: hidden;
+}
+
+.navbar__tab--active .navbar__icon img {
+  transform: translateX(-100%);
+  filter: drop-shadow(28px 0 0 var(--color-primary-dark));
 }
 
 .navbar__icon {
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  height: 42px;
+  width: 28px;
+  height: 28px;
 }
 
 .navbar__icon img {
   display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .navbar__divider {
@@ -42,4 +56,10 @@
   top: 0;
   left: 0;
   height: 100%;
+}
+
+
+/* rotated divider is as long as its natural width, so match the bar height */
+.navbar__divider img {
+  width: var(--navbar-height);
 }

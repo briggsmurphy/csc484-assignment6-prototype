@@ -87,7 +87,10 @@ function App() {
 
       {activePage === "Profile" && <Profile />}
 
-      <Navbar setActivePage={setActivePage} />
+      <Navbar
+        activePage={activePage === "MakePost" ? "Social" : activePage}
+        setActivePage={setActivePage}
+      />
     </>
   );
 }

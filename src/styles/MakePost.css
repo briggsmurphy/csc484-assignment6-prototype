@@ -1,28 +1,17 @@
-.make-post__header {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 68px;
-  border-bottom: 1px solid var(--color-ink);
-}
-
-.make-post__header h1 {
-  font-size: 24px;
-  font-weight: 700;
-}
-
+/* in the shared PageHeader action slot */
 .make-post__back {
-  position: absolute;
-  left: 25px;
   font-size: 32px;
+  line-height: 1;
 }
 
 .make-post__form {
   display: flex;
   flex-direction: column;
-  gap: 22px;
-  padding: 36px 25px 40px;
+  gap: 16px;
+  margin: 24px;
+  padding: 20px;
+  background: var(--color-surface-active);
+  border-radius: var(--radius-md);
 }
 
 .make-post__form select,
@@ -31,21 +20,26 @@
   width: 100%;
   box-sizing: border-box;
   padding: 12px;
-  border: none;
-  border-radius: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
   background: var(--color-surface);
   font: inherit;
-  font-size: 14px;
-}
-
-.make-post__form select,
-.make-post__form input {
-  height: 40px;
 }
 
 .make-post__form textarea {
   height: 119px;
   resize: vertical;
+}
+
+.make-post__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.make-post__field > span {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
 }
 
 .make-post__photo {
@@ -55,8 +49,9 @@
   justify-content: center;
   gap: 8px;
   height: 154px;
+  border-radius: var(--radius-sm);
   background: var(--color-placeholder);
-  color: white;
+  color: var(--color-text-inverse);
   font-size: 13px;
   cursor: pointer;
   text-align: center;
@@ -71,10 +66,13 @@
 }
 
 .make-post__submit {
-  height: 40px;
-  border: 1px solid var(--color-ink);
-  background: var(--color-surface);
-  font-size: 14px;
+  width: 100%;
+  min-height: 52px;
+  border-radius: var(--radius-pill);
+  background: var(--color-button);
+  color: var(--color-text-inverse);
+  font-size: 20px;
+  cursor: pointer;
 }
 
 .make-post__preview {
