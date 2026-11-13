@@ -1,5 +1,4 @@
-
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import PageHeader from "../components/PageHeader";
 import avatar from "../assets/figma/avatar.svg";
 import caretDown from "../assets/figma/caret-down.svg";
@@ -25,23 +24,9 @@ const friends = [5, 6, 4, 3].map((id) =>
   users.find((user) => user.id === id)
 );
 
-function Leaderboard() {
+function Leaderboard({ groups, setGroups }) {
   const [activeTab, setActiveTab] = useState("Global");
-  const [filterBy, setFilterBy] = useState(() => {
-    return sessionStorage.getItem("leaderboardFilter") || "Cal Poly Students";
-  });
-  const [groups, setGroups] = useState(() => {
-  const savedGroups = sessionStorage.getItem("leaderboardGroups");
-  return savedGroups ? JSON.parse(savedGroups) : [];
-  });
-
-  useEffect(() => {
-    sessionStorage.setItem("leaderboardFilter", filterBy);
-  }, [filterBy]);
-
-  useEffect(() => {
-    sessionStorage.setItem("leaderboardGroups", JSON.stringify(groups));
-  }, [groups]);
+  const [filterBy, setFilterBy] = useState("Cal Poly Students");
 
   const [selectedGroup, setSelectedGroup] = useState(null);
 

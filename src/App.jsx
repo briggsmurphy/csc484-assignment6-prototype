@@ -41,6 +41,8 @@ const startingPosts = [
 function App() {
   const [activePage, setActivePage] = useState("Home");
   const [posts, setPosts] = useState(startingPosts);
+  const [workouts, setWorkouts] = useState([]);
+  const [groups, setGroups] = useState([]);
 
   function handleCreatePost(post) {
     setPosts([post, ...posts]);
@@ -49,7 +51,12 @@ function App() {
 
   return (
     <>
-      {activePage === "Home" && <Home />}
+      {activePage === "Home" && (
+        <Home
+          workouts={workouts}
+          setWorkouts={setWorkouts}
+        />
+      )}
 
       {activePage === "Social" && (
         <Social
@@ -65,7 +72,13 @@ function App() {
         />
       )}
 
-      {activePage === "Leaderboard" && <Leaderboard />}
+      {activePage === "Leaderboard" && (
+        <Leaderboard
+          groups={groups}
+          setGroups={setGroups}
+        />
+      )}
+
       {activePage === "Profile" && <Profile />}
 
       <Navbar setActivePage={setActivePage} />
