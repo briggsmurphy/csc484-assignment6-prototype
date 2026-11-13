@@ -42,7 +42,7 @@ He wants to post this logged session so that his friends can see it on their fee
 ## Team Contributions
 
 - **[Aidan Lui]:** To be completed.
-- **[Briggs Murphy]:** To be completed.
+- **[Briggs Murphy]:** Worked on workout logging, social post creation, photo previews, and app functionality.
 - **[Haixin Huang]:** To be completed.
 - **[James Oden]:** Worked on basic layout and button functionality of app..
 - **[Jonathan Fitzgerald]:** To be completed.
