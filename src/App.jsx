@@ -43,6 +43,8 @@ function App() {
   const [posts, setPosts] = useState(startingPosts);
   const [workouts, setWorkouts] = useState([]);
   const [groups, setGroups] = useState([]);
+  const [leaderboardTab, setLeaderboardTab] = useState("Global");
+  const [filterBy, setFilterBy] = useState("Cal Poly Students");
 
   function handleCreatePost(post) {
     setPosts([post, ...posts]);
@@ -76,6 +78,10 @@ function App() {
         <Leaderboard
           groups={groups}
           setGroups={setGroups}
+          activeTab={leaderboardTab}
+          setActiveTab={setLeaderboardTab}
+          filterBy={filterBy}
+          setFilterBy={setFilterBy}
         />
       )}
 

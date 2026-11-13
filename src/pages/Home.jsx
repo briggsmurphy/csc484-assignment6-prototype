@@ -28,9 +28,11 @@ function Home({ workouts, setWorkouts }) {
     <main className="page">
       <PageHeader title="Workout History" />
 
-      <div className="home__add-workout">
-        <AddWorkoutButton onClick={() => setShowForm(!showForm)} />
-      </div>
+      {!showForm && (
+        <div className="home__add-workout">
+          <AddWorkoutButton onClick={() => setShowForm(true)} />
+        </div>
+      )}
 
       {showForm && (
         <form className="workout-form" onSubmit={handleSave}>
@@ -67,6 +69,16 @@ function Home({ workouts, setWorkouts }) {
           />
 
           <button type="submit">Save Workout</button>
+
+          <button
+            type="button"
+            onClick={() => {
+              setShowForm(false);
+              setDuration("");
+            }}
+          >
+            Cancel
+          </button>
         </form>
       )}
 
