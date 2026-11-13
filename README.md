@@ -46,4 +46,4 @@ He wants to post this logged session so that his friends can see it on their fee
 - **[Haixin Huang]:** To be completed.
 - **[James Oden]:** Worked on basic layout and button functionality of app..
 - **[Jonathan Fitzgerald]:** To be completed.
-- **[Laleina Mercado]:** To be completed.
+- **[Laleina Mercado]:** Established global css.
