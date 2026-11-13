@@ -41,9 +41,9 @@ He wants to post this logged session so that his friends can see it on their fee
 
 ## Team Contributions
 
-- **[Aidan Lui]:** Worked on creating groups and leaderboard state, making the add workout button disappear when logging a workout and being able to                     cancel 
+- **[Aidan Lui]:** Worked on creating groups and leaderboard state, making the add workout button disappear when logging a workout and being able to cancel. 
 - **[Briggs Murphy]:** Worked on workout logging, social post creation, photo previews, and app functionality.
-- **[Haixin Huang]:** To be completed.
-- **[James Oden]:** Worked on basic layout and button functionality of app..
-- **[Jonathan Fitzgerald]:** To be completed.
+- **[Haixin Huang]:**  Worked on individual page and component CSS styling.
+- **[James Oden]:** Worked on basic layout and button functionality of app.
+- **[Jonathan Fitzgerald]:** Worked on basic layout and importing low fidelity prototype.
 - **[Laleina Mercado]:** Established global css.
