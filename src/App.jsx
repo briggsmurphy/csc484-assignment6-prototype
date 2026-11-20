@@ -44,15 +44,12 @@ const startingPosts = [
 function App() {
   const [activePage, setActivePage] = useState("Home");
   const [posts, setPosts] = useState(startingPosts);
-<<<<<<< Updated upstream
-=======
   const [workouts, setWorkouts] = useState([]);
   const [groups, setGroups] = useState([]);
   const [selectedGroupId, setSelectedGroupId] = useState(null);
   const [postGroupId, setPostGroupId] = useState(null);
   const [leaderboardTab, setLeaderboardTab] = useState("Global");
   const [filterBy, setFilterBy] = useState("Cal Poly Students");
->>>>>>> Stashed changes
 
   const [currentUser, setCurrentUser] = useState({
     id: 3,
@@ -144,10 +141,6 @@ function App() {
         />
       )}
 
-<<<<<<< Updated upstream
-      {activePage === "Leaderboard" && <Leaderboard />}
-      {activePage === "Profile" && <Profile />}
-=======
       {activePage === "Leaderboard" && (
         <Leaderboard
           groups={groups}
@@ -167,7 +160,6 @@ function App() {
           groups={groups}
         />
       )}
->>>>>>> Stashed changes
 
       <Navbar setActivePage={setActivePage} />
     </>
