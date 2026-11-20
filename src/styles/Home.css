@@ -1,6 +1,6 @@
 .home__add-workout {
   position: fixed;
-  bottom: calc(var(--navbar-height) + 73px);
+  bottom: calc(var(--navbar-height) + 30px);
   left: 50%;
   transform: translateX(-50%);
   z-index: 1;
@@ -9,11 +9,11 @@
 .workout-form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 4px;
   margin: 24px;
   padding: 20px;
   background: var(--color-surface-active);
-  border-radius: 12px;
+  border-radius: var(--radius-md);
 }
 
 .workout-form h2 {
@@ -22,8 +22,9 @@
 }
 
 .workout-form label {
-  font-weight: 600;
-  font-size: 14px;
+  margin-top: 12px;
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-sm);
 }
 
 .workout-form input,
@@ -31,19 +32,19 @@
   width: 100%;
   box-sizing: border-box;
   padding: 12px;
-  border: 1px solid #aaa;
-  border-radius: 8px;
-  background: white;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
   font: inherit;
 }
 
 .workout-form button {
   padding: 12px;
-  border-radius: 30px;
+  border-radius: var(--radius-pill);
   background: var(--color-button);
-  color: var(--color-bg);
-  font-weight: 700;
-  margin-top: 8px;
+  color: var(--color-text-inverse);
+  font-weight: var(--font-weight-bold);
+  margin-top: 20px;
 }
 
 .workout-history {
@@ -55,7 +56,8 @@
 
 .workout-history__item {
   padding: 16px;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid #e5e7eb;
   background: var(--color-surface-active);
 }
 
@@ -65,6 +67,26 @@
 
 .workout-history__item p {
   margin-top: 4px;
-  color: #555;
-  font-size: 14px;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.workout-form .workout-form__cancel {
+  margin-top: 4px;
+  padding: 6px;
+  background: none;
+  color: var(--color-text);
+  font-weight: var(--font-weight-regular);
+}
+
+
+/* put the select arrow and date icon the same distance (12px) from the right edge */
+.workout-form select {
+  appearance: none;
+  background: var(--color-surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%2314251b' stroke-width='2'%3E%3Cpath d='M1 1l5 5 5-5'/%3E%3C/svg%3E") no-repeat right 12px center;
+}
+
+.workout-form input[type="date"]::-webkit-calendar-picker-indicator {
+  margin: 0;
+  padding: 0;
 }

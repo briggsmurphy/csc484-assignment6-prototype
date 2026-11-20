@@ -3,10 +3,8 @@ import PageHeader from "../components/PageHeader";
 import AddWorkoutButton from "../components/AddWorkoutButton";
 import "../styles/Home.css";
 
-function Home() {
+function Home({ workouts, setWorkouts }) {
   const [showForm, setShowForm] = useState(false);
-  const [workouts, setWorkouts] = useState([]);
-
   const [activity, setActivity] = useState("Strength Training");
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   const [duration, setDuration] = useState("");
@@ -30,9 +28,11 @@ function Home() {
     <main className="page">
       <PageHeader title="Workout History" />
 
-      <div className="home__add-workout">
-        <AddWorkoutButton onClick={() => setShowForm(!showForm)} />
-      </div>
+      {!showForm && (
+        <div className="home__add-workout">
+          <AddWorkoutButton onClick={() => setShowForm(true)} />
+        </div>
+      )}
 
       {showForm && (
         <form className="workout-form" onSubmit={handleSave}>
@@ -69,6 +69,17 @@ function Home() {
           />
 
           <button type="submit">Save Workout</button>
+
+          <button
+            className="workout-form__cancel"
+            type="button"
+            onClick={() => {
+              setShowForm(false);
+              setDuration("");
+            }}
+          >
+            Cancel
+          </button>
         </form>
       )}
 

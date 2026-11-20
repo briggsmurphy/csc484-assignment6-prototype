@@ -1,13 +1,8 @@
 .page-header {
-  position: sticky;
-  top: 0;
-  z-index: 1;
+  position: relative; /* not sticky; still anchors the absolute title/line */
   height: 82px;
   background: var(--color-bg);
-}
-
-.page-header--with-action {
-  height: 79px;
+  border-bottom: 1px solid var(--color-ink); /* CSS border stays crisp; the scaled svg line blurred */
 }
 
 .page-header__title {
@@ -20,20 +15,11 @@
   white-space: nowrap;
 }
 
-.page-header--with-action .page-header__title {
-  top: 26px;
-}
-
 .page-header__action {
   position: absolute;
-  top: 23px;
+  top: 37px; /* same top as the title */
   left: 27px;
-}
-
-.page-header__line {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  display: block;
-  width: 100%;
+  display: flex;
+  align-items: center;
+  height: 40px; /* title line height (32px * 1.25), so the icon centers on it */
 }
