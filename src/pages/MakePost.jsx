@@ -3,11 +3,16 @@ import { useState } from "react";
 import PageHeader from "../components/PageHeader";
 import "../styles/MakePost.css";
 
-function MakePost({ onBack, onCreatePost }) {
+function MakePost({ groups, initialGroupId, onBack, onCreatePost }) {
   const [activity, setActivity] = useState("");
   const [title, setTitle] = useState("");
   const [caption, setCaption] = useState("");
+  const [duration, setDuration] = useState("");
+  const [calories, setCalories] = useState("");
   const [photo, setPhoto] = useState(null);
+  const [audience, setAudience] = useState(
+    initialGroupId ? String(initialGroupId) : "everyone"
+  );
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -19,13 +24,14 @@ function MakePost({ onBack, onCreatePost }) {
       title: title,
       caption: caption,
       time: "Just now",
-      location: "Cal Poly",
+      location: "",
       hasPhoto: Boolean(photo),
       photoUrl: photo ? URL.createObjectURL(photo) : null,
       activity: activity,
-      duration: "—",
-      calories: "—",
-      points: 0,
+      duration: duration ? `${duration} min` : "",
+      calories: calories ? `${calories} kcal` : "",
+      points: duration ? Math.floor(Number(duration) / 5) : null,
+      groupId: audience === "everyone" ? null : Number(audience),
     };
 
     onCreatePost(newPost);
@@ -64,6 +70,21 @@ function MakePost({ onBack, onCreatePost }) {
         </label>
 
         <label className="make-post__field">
+          <span>Audience</span>
+          <select
+            value={audience}
+            onChange={(event) => setAudience(event.target.value)}
+          >
+            <option value="everyone">Everyone</option>
+            {groups.map((group) => (
+              <option key={group.id} value={String(group.id)}>
+                {group.name}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label className="make-post__field">
           <span>Title</span>
           <input
             type="text"
@@ -80,6 +101,28 @@ function MakePost({ onBack, onCreatePost }) {
             placeholder="Add caption..."
             value={caption}
             onChange={(event) => setCaption(event.target.value)}
+          />
+        </label>
+
+        <label className="make-post__field">
+          <span>Duration (minutes) - Optional</span>
+          <input
+            type="number"
+            min="1"
+            placeholder="Example: 45"
+            value={duration}
+            onChange={(event) => setDuration(event.target.value)}
+          />
+        </label>
+
+        <label className="make-post__field">
+          <span>Calories (kcal) - Optional</span>
+          <input
+            type="number"
+            min="0"
+            placeholder="Example: 320"
+            value={calories}
+            onChange={(event) => setCalories(event.target.value)}
           />
         </label>
 
