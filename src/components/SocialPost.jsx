@@ -6,25 +6,27 @@ import heartIcon from "../assets/figma/heart.svg";
 import commentIcon from "../assets/figma/comment.svg";
 import "./SocialPost.css";
 
-function SocialPost({ post, currentUserId, onDelete }) {
-  const [liked, setLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(post.likes || 0);
+function SocialPost({
+  post,
+  interaction,
+  currentUserId,
+  onDelete,
+  onLike,
+  onAddComment,
+}) {
   const [showComments, setShowComments] = useState(false);
-  const [comments, setComments] = useState(post.comments || []);
   const [newComment, setNewComment] = useState("");
   const [showMenu, setShowMenu] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
+  const liked = (interaction?.likedBy || []).includes(currentUserId);
+  const likeCount = interaction?.likes ?? post.likes ?? 0;
+  const comments = interaction?.comments ?? post.comments ?? [];
+
   const canDelete = post.authorId === currentUserId;
 
   function handleLike() {
-    if (liked) {
-      setLikeCount(likeCount - 1);
-    } else {
-      setLikeCount(likeCount + 1);
-    }
-
-    setLiked(!liked);
+    onLike(post.id);
   }
 
   function handleComment(event) {
@@ -34,7 +36,7 @@ function SocialPost({ post, currentUserId, onDelete }) {
       return;
     }
 
-    setComments([...comments, newComment.trim()]);
+    onAddComment(post.id, newComment.trim());
     setNewComment("");
   }
 

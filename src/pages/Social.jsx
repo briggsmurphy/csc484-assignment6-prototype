@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import PageHeader from "../components/PageHeader";
 import SocialPost from "../components/SocialPost";
@@ -21,6 +22,7 @@ const friends = [5, 6, 4, 3].map((id) =>
 
 function Social({
   posts,
+  postInteractions,
   groups,
   selectedGroupId,
   onSelectGroup,
@@ -28,6 +30,8 @@ function Social({
   onMakePost,
   onCreateGroup,
   onDeletePost,
+  onLikePost,
+  onAddComment,
   onRemoveGroupMember,
   onDeleteGroup,
   currentUserId,
@@ -380,8 +384,11 @@ function Social({
                 <SocialPost
                   key={post.id}
                   post={post}
+                  interaction={postInteractions[post.id]}
                   currentUserId={currentUserId}
                   onDelete={onDeletePost}
+                  onLike={onLikePost}
+                  onAddComment={onAddComment}
                 />
               ))}
 
@@ -437,8 +444,11 @@ function Social({
                 <SocialPost
                   key={post.id}
                   post={post}
+                  interaction={postInteractions[post.id]}
                   currentUserId={currentUserId}
                   onDelete={onDeletePost}
+                  onLike={onLikePost}
+                  onAddComment={onAddComment}
                 />
               ))}
 
