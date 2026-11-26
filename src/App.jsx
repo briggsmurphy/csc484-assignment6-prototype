@@ -1,4 +1,5 @@
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
@@ -40,9 +41,26 @@ const startingPosts = [
   },
 ];
 
+function loadPostInteractions() {
+  try {
+    const savedInteractions = localStorage.getItem("fitness-app-interactions");
+
+    if (savedInteractions) {
+      return JSON.parse(savedInteractions);
+    }
+  } catch (error) {
+    console.error("Could not load saved interactions:", error);
+  }
+
+  return {};
+}
+
 function App() {
   const [activePage, setActivePage] = useState("Home");
   const [posts, setPosts] = useState(startingPosts);
+  const [postInteractions, setPostInteractions] = useState(
+    loadPostInteractions
+  );
   const [workouts, setWorkouts] = useState([]);
   const [groups, setGroups] = useState([]);
   const [selectedGroupId, setSelectedGroupId] = useState(null);
@@ -55,6 +73,71 @@ function App() {
     name: "Shohei",
     school: "Cal Poly",
   });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(
+        "fitness-app-interactions",
+        JSON.stringify(postInteractions)
+      );
+    } catch (error) {
+      console.error("Could not save interactions:", error);
+    }
+  }, [postInteractions]);
+
+  function handleLikePost(postId) {
+    const post = posts.find((post) => post.id === postId);
+
+    setPostInteractions((currentInteractions) => {
+      const currentInteraction = currentInteractions[postId] || {
+        likes: post?.likes || 0,
+        likedBy: post?.likedBy || [],
+        comments: post?.comments || [],
+      };
+
+      const alreadyLiked = currentInteraction.likedBy.includes(
+        currentUser.id
+      );
+
+      const updatedLikedBy = alreadyLiked
+        ? currentInteraction.likedBy.filter(
+            (userId) => userId !== currentUser.id
+          )
+        : [...currentInteraction.likedBy, currentUser.id];
+
+      return {
+        ...currentInteractions,
+        [postId]: {
+          ...currentInteraction,
+          likedBy: updatedLikedBy,
+          likes: Math.max(
+            0,
+            currentInteraction.likes + (alreadyLiked ? -1 : 1)
+          ),
+        },
+      };
+    });
+  }
+
+  function handleAddComment(postId, comment) {
+    const post = posts.find((post) => post.id === postId);
+
+    setPostInteractions((currentInteractions) => {
+      const currentInteraction = currentInteractions[postId] || {
+        likes: post?.likes || 0,
+        likedBy: post?.likedBy || [],
+        comments: post?.comments || [],
+      };
+
+      return {
+        ...currentInteractions,
+        [postId]: {
+          ...currentInteraction,
+          comments: [...currentInteraction.comments, comment],
+        },
+      };
+    });
+  }
 
   function handleCreatePost(post) {
     const newPost = {
@@ -146,6 +229,7 @@ function App() {
       {activePage === "Social" && (
         <Social
           posts={posts}
+          postInteractions={postInteractions}
           groups={groups}
           selectedGroupId={selectedGroupId}
           currentUserId={currentUser.id}
@@ -154,6 +238,8 @@ function App() {
           onMakePost={handleMakePost}
           onCreateGroup={handleCreateGroup}
           onDeletePost={handleDeletePost}
+          onLikePost={handleLikePost}
+          onAddComment={handleAddComment}
           onRemoveGroupMember={handleRemoveGroupMember}
           onDeleteGroup={handleDeleteGroup}
         />
