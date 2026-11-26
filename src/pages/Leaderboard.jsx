@@ -1,8 +1,9 @@
-
 import { useState } from "react";
 import PageHeader from "../components/PageHeader";
+import ConfirmModal from "../components/ConfirmModal";
 import avatar from "../assets/figma/avatar.svg";
 import "../styles/Leaderboard.css";
+import "../styles/Social.css";
 
 const stats = [
   { label: "Points", value: "97,045" },
@@ -19,15 +20,32 @@ const users = [
   { id: 6, name: "Briggs", points: 82000, isFriend: true },
 ];
 
+const friends = [5, 6, 4, 3].map((id) =>
+  users.find((user) => user.id === id)
+);
+
 function Leaderboard({
   groups,
   activeTab,
   setActiveTab,
   filterBy,
   setFilterBy,
+  currentUserId,
+  onCreateGroup,
+  onDeleteGroup,
 }) {
-  const [selectedGroup, setSelectedGroup] = useState(null);
+  const [selectedGroupId, setSelectedGroupId] = useState(null);
   const [searchUser, setSearchUser] = useState("");
+  const [isCreatingGroup, setIsCreatingGroup] = useState(false);
+  const [groupName, setGroupName] = useState("");
+  const [searchFriends, setSearchFriends] = useState("");
+  const [selectedFriendIds, setSelectedFriendIds] = useState([]);
+  const [openGroupMenu, setOpenGroupMenu] = useState(false);
+  const [showDeleteGroup, setShowDeleteGroup] = useState(false);
+
+  const selectedGroup = groups.find(
+    (group) => group.id === selectedGroupId
+  );
 
   const filterGroup = groups.find(
     (group) => `group-${group.id}` === filterBy
@@ -55,42 +73,153 @@ function Leaderboard({
         .sort((a, b) => b.points - a.points)
     : [];
 
+  const filteredFriends = friends.filter((friend) =>
+    friend.name.toLowerCase().includes(searchFriends.toLowerCase())
+  );
+
+  function handleFriendToggle(friendId) {
+    if (selectedFriendIds.includes(friendId)) {
+      setSelectedFriendIds(
+        selectedFriendIds.filter((id) => id !== friendId)
+      );
+    } else {
+      setSelectedFriendIds([...selectedFriendIds, friendId]);
+    }
+  }
+
+  function handleCreateGroup(event) {
+    event.preventDefault();
+
+    const newGroup = {
+      id: Date.now(),
+      name: groupName.trim(),
+      creatorId: currentUserId,
+      members: [currentUserId, ...selectedFriendIds],
+    };
+
+    onCreateGroup(newGroup);
+
+    setGroupName("");
+    setSearchFriends("");
+    setSelectedFriendIds([]);
+    setIsCreatingGroup(false);
+  }
+
+  function handleCancelGroup() {
+    setGroupName("");
+    setSearchFriends("");
+    setSelectedFriendIds([]);
+    setIsCreatingGroup(false);
+  }
+
   return (
     <main className="page">
       <PageHeader title="Leaderboard" />
 
       <div className="leaderboard">
-        <div className="leaderboard__tabs">
-          <button
-            className={
-              activeTab === "Global"
-                ? "leaderboard__tab leaderboard__tab--active"
-                : "leaderboard__tab"
-            }
-            onClick={() => {
-              setActiveTab("Global");
-              setSelectedGroup(null);
-            }}
-          >
-            Global
-          </button>
+        {!isCreatingGroup && (
+          <div className="leaderboard__tabs">
+            <button
+              className={
+                activeTab === "Global"
+                  ? "leaderboard__tab leaderboard__tab--active"
+                  : "leaderboard__tab"
+              }
+              onClick={() => {
+                setActiveTab("Global");
+                setSelectedGroupId(null);
+                setOpenGroupMenu(false);
+              }}
+            >
+              Global
+            </button>
 
-          <button
-            className={
-              activeTab === "Groups"
-                ? "leaderboard__tab leaderboard__tab--active"
-                : "leaderboard__tab"
-            }
-            onClick={() => {
-              setActiveTab("Groups");
-              setSelectedGroup(null);
-            }}
-          >
-            My Groups
-          </button>
-        </div>
+            <button
+              className={
+                activeTab === "Groups"
+                  ? "leaderboard__tab leaderboard__tab--active"
+                  : "leaderboard__tab"
+              }
+              onClick={() => {
+                setActiveTab("Groups");
+                setSelectedGroupId(null);
+                setOpenGroupMenu(false);
+              }}
+            >
+              My Groups
+            </button>
+          </div>
+        )}
 
-        {activeTab === "Global" && (
+        {isCreatingGroup ? (
+          <form
+            className="social__create-group"
+            onSubmit={handleCreateGroup}
+          >
+            <h2>Create a Group</h2>
+
+            <label htmlFor="leaderboard-group-name">Group Name</label>
+            <input
+              id="leaderboard-group-name"
+              className="social__group-name-input"
+              type="text"
+              value={groupName}
+              onChange={(event) => setGroupName(event.target.value)}
+              required
+            />
+
+            <label htmlFor="leaderboard-friend-search">Add Friends</label>
+            <div className="social__friend-search">
+              <input
+                id="leaderboard-friend-search"
+                type="search"
+                placeholder="Search friends..."
+                value={searchFriends}
+                onChange={(event) => setSearchFriends(event.target.value)}
+              />
+              <span>⌕</span>
+            </div>
+
+            <div className="social__friend-list">
+              {filteredFriends.map((friend) => (
+                <label className="social__friend" key={friend.id}>
+                  <img src={avatar} alt="" />
+
+                  <span>
+                    {friend.name}
+                    {friend.isCurrentUser ? " (You)" : ""}
+                  </span>
+
+                  <input
+                    type="checkbox"
+                    checked={
+                      friend.id === currentUserId ||
+                      selectedFriendIds.includes(friend.id)
+                    }
+                    disabled={friend.id === currentUserId}
+                    onChange={() => handleFriendToggle(friend.id)}
+                  />
+                </label>
+              ))}
+
+              {filteredFriends.length === 0 && (
+                <p className="social__empty">No friends found.</p>
+              )}
+            </div>
+
+            <button className="social__create-submit" type="submit">
+              Create Group
+            </button>
+
+            <button
+              className="social__cancel"
+              type="button"
+              onClick={handleCancelGroup}
+            >
+              Cancel
+            </button>
+          </form>
+        ) : activeTab === "Global" ? (
           <>
             <div className="leaderboard__stats">
               {stats.map(({ label, value }) => (
@@ -153,37 +282,84 @@ function Leaderboard({
               </p>
             )}
           </>
-        )}
-
-        {activeTab === "Groups" && (
+        ) : (
           <div className="leaderboard__group-section">
             {!selectedGroup ? (
-              <div className="leaderboard__groups">
-                <p className="leaderboard__groups-title">Your Groups</p>
+              <div className="social__groups">
+                <div className="social__groups-header">
+                  <h2>My Groups</h2>
+                  <button
+                    className="social__create-group-button"
+                    onClick={() => setIsCreatingGroup(true)}
+                  >
+                    + Create Group
+                  </button>
+                </div>
 
                 {groups.length === 0 ? (
                   <p className="leaderboard__empty">
-                    You haven't created any groups yet. Go to Social to create one.
+                    You haven't created any groups yet.
                   </p>
                 ) : (
-                  groups.map((group) => (
-                    <button
-                      className="leaderboard__group-item"
-                      key={group.id}
-                      onClick={() => setSelectedGroup(group)}
-                    >
-                      {group.name}
-                    </button>
-                  ))
+                  <div className="social__group-list">
+                    {groups.map((group) => (
+                      <button
+                        className="social__group-item"
+                        key={group.id}
+                        onClick={() => setSelectedGroupId(group.id)}
+                      >
+                        <div>
+                          <h3>{group.name}</h3>
+                          <p>{group.members.length} members</p>
+                        </div>
+                        <span className="social__group-arrow">›</span>
+                      </button>
+                    ))}
+                  </div>
                 )}
               </div>
             ) : (
               <div className="leaderboard__group-ranking">
-                <button onClick={() => setSelectedGroup(null)}>
+                <button
+                  onClick={() => {
+                    setSelectedGroupId(null);
+                    setOpenGroupMenu(false);
+                  }}
+                >
                   ← Back to Groups
                 </button>
 
-                <h2>{selectedGroup.name}</h2>
+                <div className="social__groups-header">
+                  <h2>{selectedGroup.name}</h2>
+
+                  {selectedGroup.creatorId === currentUserId && (
+                    <div className="social__member-menu">
+                      <button
+                        className="social__menu-button"
+                        type="button"
+                        aria-label="Group options"
+                        aria-expanded={openGroupMenu}
+                        onClick={() => setOpenGroupMenu(!openGroupMenu)}
+                      >
+                        ⋯
+                      </button>
+
+                      {openGroupMenu && (
+                        <div className="social__menu">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setOpenGroupMenu(false);
+                              setShowDeleteGroup(true);
+                            }}
+                          >
+                            Delete Group
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
 
                 <p className="leaderboard__groups-title">
                   Group Rankings
@@ -213,6 +389,20 @@ function Leaderboard({
           </div>
         )}
       </div>
+
+      {showDeleteGroup && selectedGroup && (
+        <ConfirmModal
+          title="Delete Group?"
+          message={`Are you sure you want to delete ${selectedGroup.name}?`}
+          confirmText="Delete"
+          onConfirm={() => {
+            onDeleteGroup(selectedGroup.id);
+            setSelectedGroupId(null);
+            setShowDeleteGroup(false);
+          }}
+          onCancel={() => setShowDeleteGroup(false)}
+        />
+      )}
     </main>
   );
 }

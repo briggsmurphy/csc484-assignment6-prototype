@@ -1,6 +1,7 @@
 import { useState } from "react";
 import PageHeader from "../components/PageHeader";
 import AddWorkoutButton from "../components/AddWorkoutButton";
+import ConfirmModal from "../components/ConfirmModal";
 import "../styles/Home.css";
 
 function Home({ workouts, setWorkouts }) {
@@ -8,6 +9,8 @@ function Home({ workouts, setWorkouts }) {
   const [activity, setActivity] = useState("Strength Training");
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   const [duration, setDuration] = useState("");
+  const [openMenuId, setOpenMenuId] = useState(null);
+  const [workoutToDelete, setWorkoutToDelete] = useState(null);
 
   function handleSave(event) {
     event.preventDefault();
@@ -22,6 +25,21 @@ function Home({ workouts, setWorkouts }) {
     setWorkouts([...workouts, newWorkout]);
     setShowForm(false);
     setDuration("");
+  }
+
+  function handleDeleteWorkout(workoutId) {
+    setWorkoutToDelete(workoutId);
+    setOpenMenuId(null);
+  }
+
+  function confirmDeleteWorkout() {
+    if (workoutToDelete !== null) {
+      setWorkouts((currentWorkouts) =>
+        currentWorkouts.filter((workout) => workout.id !== workoutToDelete)
+      );
+    }
+
+    setWorkoutToDelete(null);
   }
 
   return (
@@ -86,12 +104,49 @@ function Home({ workouts, setWorkouts }) {
       <div className="workout-history">
         {workouts.map((workout) => (
           <div className="workout-history__item" key={workout.id}>
+            <div className="workout-history__menu-container">
+              <button
+                className="workout-history__menu-button"
+                type="button"
+                aria-label={`Options for ${workout.activity} workout`}
+                aria-expanded={openMenuId === workout.id}
+                onClick={() =>
+                  setOpenMenuId(
+                    openMenuId === workout.id ? null : workout.id
+                  )
+                }
+              >
+                ⋯
+              </button>
+
+              {openMenuId === workout.id && (
+                <div className="workout-history__menu">
+                  <button
+                    type="button"
+                    onClick={() => handleDeleteWorkout(workout.id)}
+                  >
+                    Delete Workout
+                  </button>
+                </div>
+              )}
+            </div>
+
             <h3>{workout.activity}</h3>
             <p>{workout.date}</p>
             <p>{workout.duration} minutes</p>
           </div>
         ))}
       </div>
+
+      {workoutToDelete !== null && (
+        <ConfirmModal
+          title="Delete Workout?"
+          message="Are you sure you want to delete this workout?"
+          confirmText="Delete"
+          onConfirm={confirmDeleteWorkout}
+          onCancel={() => setWorkoutToDelete(null)}
+        />
+      )}
     </main>
   );
 }

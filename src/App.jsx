@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar";
@@ -80,6 +79,28 @@ function App() {
     setGroups((currentGroups) => [...currentGroups, newGroup]);
   }
 
+  function handleDeleteGroup(groupId) {
+    const group = groups.find((group) => group.id === groupId);
+
+    if (!group || group.creatorId !== currentUser.id) {
+      return;
+    }
+
+    setGroups((currentGroups) =>
+      currentGroups.filter((group) => group.id !== groupId)
+    );
+
+    setSelectedGroupId((currentId) =>
+      currentId === groupId ? null : currentId
+    );
+
+    setFilterBy((currentFilter) =>
+      currentFilter === `group-${groupId}`
+        ? "Cal Poly Students"
+        : currentFilter
+    );
+  }
+
   function handleRemoveGroupMember(groupId, memberId) {
     setGroups((currentGroups) =>
       currentGroups.map((group) =>
@@ -134,6 +155,7 @@ function App() {
           onCreateGroup={handleCreateGroup}
           onDeletePost={handleDeletePost}
           onRemoveGroupMember={handleRemoveGroupMember}
+          onDeleteGroup={handleDeleteGroup}
         />
       )}
 
@@ -153,6 +175,9 @@ function App() {
           setActiveTab={setLeaderboardTab}
           filterBy={filterBy}
           setFilterBy={setFilterBy}
+          currentUserId={currentUser.id}
+          onCreateGroup={handleCreateGroup}
+          onDeleteGroup={handleDeleteGroup}
         />
       )}
 
