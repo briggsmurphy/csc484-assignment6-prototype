@@ -90,3 +90,57 @@
   margin: 0;
   padding: 0;
 }
+
+.workout-history__item {
+  position: relative;
+}
+
+.workout-history__menu-container {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+
+.workout-history__menu-button {
+  border: none;
+  background: transparent;
+  color: #777;
+  font-size: 25px;
+  font-weight: bold;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.workout-history__menu-button:hover {
+  background: var(--color-surface-active);
+}
+
+.workout-history__menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 10;
+  min-width: 150px;
+  padding: 5px;
+  background: var(--color-surface);
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.workout-history__menu button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background: transparent;
+  color: #dc2626;
+  text-align: left;
+  cursor: pointer;
+}
+
+.workout-history__menu button:hover {
+  background: #fee2e2;
+}

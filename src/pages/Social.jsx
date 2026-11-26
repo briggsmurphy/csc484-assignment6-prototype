@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import PageHeader from "../components/PageHeader";
 import SocialPost from "../components/SocialPost";
@@ -30,6 +29,7 @@ function Social({
   onCreateGroup,
   onDeletePost,
   onRemoveGroupMember,
+  onDeleteGroup,
   currentUserId,
 }) {
   const [activeTab, setActiveTab] = useState("Global");
@@ -41,6 +41,8 @@ function Social({
   const [activeFilter, setActiveFilter] = useState("All");
   const [openMemberMenuId, setOpenMemberMenuId] = useState(null);
   const [memberToRemove, setMemberToRemove] = useState(null);
+  const [openGroupMenu, setOpenGroupMenu] = useState(false);
+  const [showDeleteGroup, setShowDeleteGroup] = useState(false);
 
   const selectedGroup = groups.find(
     (group) => group.id === selectedGroupId
@@ -49,6 +51,7 @@ function Social({
   function handleTabChange(tab) {
     setActiveTab(tab);
     setIsCreatingGroup(false);
+    setOpenGroupMenu(false);
     onBackToGroups();
   }
 
@@ -261,13 +264,47 @@ function Social({
           <>
             <button
               className="social__back"
-              onClick={onBackToGroups}
+              onClick={() => {
+                setOpenGroupMenu(false);
+                onBackToGroups();
+              }}
             >
               ← Back to My Groups
             </button>
 
             <section className="social__group-details">
-              <h2>{selectedGroup.name}</h2>
+              <div className="social__groups-header">
+                <h2>{selectedGroup.name}</h2>
+
+                {selectedGroup.creatorId === currentUserId && (
+                  <div className="social__member-menu">
+                    <button
+                      className="social__menu-button"
+                      type="button"
+                      aria-label="Group options"
+                      aria-expanded={openGroupMenu}
+                      onClick={() => setOpenGroupMenu(!openGroupMenu)}
+                    >
+                      ⋯
+                    </button>
+
+                    {openGroupMenu && (
+                      <div className="social__menu">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setOpenGroupMenu(false);
+                            setShowDeleteGroup(true);
+                          }}
+                        >
+                          Delete Group
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+
               <p>{selectedGroup.members.length} members</p>
 
               <div className="social__members">
@@ -448,6 +485,19 @@ function Social({
           </section>
         )}
       </div>
+
+      {showDeleteGroup && selectedGroup && (
+        <ConfirmModal
+          title="Delete Group?"
+          message={`Are you sure you want to delete ${selectedGroup.name}?`}
+          confirmText="Delete"
+          onConfirm={() => {
+            onDeleteGroup(selectedGroup.id);
+            setShowDeleteGroup(false);
+          }}
+          onCancel={() => setShowDeleteGroup(false)}
+        />
+      )}
 
       {memberToRemove !== null && (
         <ConfirmModal
