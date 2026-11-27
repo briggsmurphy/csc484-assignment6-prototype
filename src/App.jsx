@@ -12,7 +12,7 @@ const startingPosts = [
   {
     id: 1,
     author: "Shohei",
-    authorId: 1,
+    authorId: 3,
     rank: 17,
     title: "Chest Day",
     caption: "",
@@ -65,6 +65,7 @@ function App() {
   const [groups, setGroups] = useState([]);
   const [selectedGroupId, setSelectedGroupId] = useState(null);
   const [postGroupId, setPostGroupId] = useState(null);
+  const [editingPost, setEditingPost] = useState(null);
   const [leaderboardTab, setLeaderboardTab] = useState("Global");
   const [filterBy, setFilterBy] = useState("Cal Poly Students");
 
@@ -150,6 +151,17 @@ function App() {
     setActivePage("Social");
   }
 
+  function handleUpdatePost(updatedPost) {
+    setPosts((currentPosts) =>
+      currentPosts.map((post) =>
+        post.id === updatedPost.id && post.authorId === currentUser.id
+          ? updatedPost
+          : post
+      )
+    );
+    setActivePage("Social");
+  }
+
   function handleDeletePost(postId) {
     setPosts((currentPosts) =>
       currentPosts.filter(
@@ -213,7 +225,13 @@ function App() {
   }
 
   function handleMakePost(groupId = null) {
+    setEditingPost(null);
     setPostGroupId(groupId);
+    setActivePage("MakePost");
+  }
+
+  function handleEditPost(post) {
+    setEditingPost(post);
     setActivePage("MakePost");
   }
 
@@ -237,6 +255,7 @@ function App() {
           onBackToGroups={() => setSelectedGroupId(null)}
           onMakePost={handleMakePost}
           onCreateGroup={handleCreateGroup}
+          onEditPost={handleEditPost}
           onDeletePost={handleDeletePost}
           onLikePost={handleLikePost}
           onAddComment={handleAddComment}
@@ -249,8 +268,10 @@ function App() {
         <MakePost
           groups={groups}
           initialGroupId={postGroupId}
+          post={editingPost}
           onBack={() => setActivePage("Social")}
           onCreatePost={handleCreatePost}
+          onUpdatePost={handleUpdatePost}
         />
       )}
 

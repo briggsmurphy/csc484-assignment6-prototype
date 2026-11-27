@@ -111,6 +111,14 @@
   background: #fee2e2;
 }
 
+.social-post__menu .social-post__menu-edit {
+  color: var(--color-ink);
+}
+
+.social-post__menu .social-post__menu-edit:hover {
+  background: var(--color-surface-active);
+}
+
 .social-post__content {
   background: var(--color-surface);
 }
