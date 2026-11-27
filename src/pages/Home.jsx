@@ -42,9 +42,34 @@ function Home({ workouts, setWorkouts }) {
     setWorkoutToDelete(null);
   }
 
+  const totalMinutes = workouts.reduce(
+    (total, workout) => total + Number(workout.duration),
+    0
+  );
+
   return (
     <main className="page">
       <PageHeader title="Workout History" />
+
+      <div className="home__intro">
+        <h2>Every workout counts.</h2>
+        <p>
+          Track your workouts, monitor your progress, and
+          compare your fitness journey with friends.
+        </p>
+      </div>
+
+      <div className="home__summary">
+        <div className="home__summary-card">
+          <strong>{workouts.length}</strong>
+          <span>Workouts logged</span>
+        </div>
+
+        <div className="home__summary-card">
+          <strong>{totalMinutes}</strong>
+          <span>Minutes active</span>
+        </div>
+      </div>
 
       {!showForm && (
         <div className="home__add-workout">
@@ -102,6 +127,16 @@ function Home({ workouts, setWorkouts }) {
       )}
 
       <div className="workout-history">
+        {workouts.length === 0 && !showForm && (
+          <div className="workout-history__empty">
+            <h3>Your fitness journey starts here</h3>
+            <p>
+              Add your first workout to start tracking your
+              activity and building your workout history.
+            </p>
+          </div>
+        )}
+        
         {workouts.map((workout) => (
           <div className="workout-history__item" key={workout.id}>
             <div className="workout-history__menu-container">
