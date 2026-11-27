@@ -29,6 +29,7 @@ function Social({
   onBackToGroups,
   onMakePost,
   onCreateGroup,
+  onEditPost,
   onDeletePost,
   onLikePost,
   onAddComment,
@@ -386,6 +387,7 @@ function Social({
                   post={post}
                   interaction={postInteractions[post.id]}
                   currentUserId={currentUserId}
+                  onEdit={onEditPost}
                   onDelete={onDeletePost}
                   onLike={onLikePost}
                   onAddComment={onAddComment}
@@ -446,6 +448,7 @@ function Social({
                   post={post}
                   interaction={postInteractions[post.id]}
                   currentUserId={currentUserId}
+                  onEdit={onEditPost}
                   onDelete={onDeletePost}
                   onLike={onLikePost}
                   onAddComment={onAddComment}

@@ -10,6 +10,7 @@ function SocialPost({
   post,
   interaction,
   currentUserId,
+  onEdit,
   onDelete,
   onLike,
   onAddComment,
@@ -74,6 +75,13 @@ function SocialPost({
 
             {showMenu && (
               <div className="social-post__menu">
+                <button
+                  className="social-post__menu-edit"
+                  type="button"
+                  onClick={() => onEdit(post)}
+                >
+                  Edit Post
+                </button>
                 <button
                   type="button"
                   onClick={() => {

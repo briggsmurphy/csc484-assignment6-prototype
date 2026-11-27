@@ -3,30 +3,45 @@ import { useState } from "react";
 import PageHeader from "../components/PageHeader";
 import "../styles/MakePost.css";
 
-function MakePost({ groups, initialGroupId, onBack, onCreatePost }) {
-  const [activity, setActivity] = useState("");
-  const [title, setTitle] = useState("");
-  const [caption, setCaption] = useState("");
-  const [duration, setDuration] = useState("");
-  const [calories, setCalories] = useState("");
+// Reads "45 min", "1h" or "1h 31m" as a number of minutes for the input.
+function toMinutes(text) {
+  if (!text) return "";
+  const hours = Number(text.match(/(\d+)h/)?.[1] || 0);
+  const minutes = Number(text.match(/(\d+) ?m/)?.[1] || 0);
+  return String(hours * 60 + minutes);
+}
+
+function MakePost({
+  groups,
+  initialGroupId,
+  post,
+  onBack,
+  onCreatePost,
+  onUpdatePost,
+}) {
+  const [activity, setActivity] = useState(post?.activity || "");
+  const [title, setTitle] = useState(post?.title || "");
+  const [caption, setCaption] = useState(post?.caption || "");
+  const [duration, setDuration] = useState(toMinutes(post?.duration));
+  const [calories, setCalories] = useState(post?.calories?.split(" ")[0] || "");
   const [photo, setPhoto] = useState(null);
-  const [audience, setAudience] = useState(
-    initialGroupId ? String(initialGroupId) : "everyone"
-  );
+  const [audience, setAudience] = useState(() => {
+    const groupId = post ? post.groupId : initialGroupId;
+    // A deleted group has no option in the list, so fall back to everyone.
+    return groups.some((group) => group.id === groupId)
+      ? String(groupId)
+      : "everyone";
+  });
+  const photoPreview = photo ? URL.createObjectURL(photo) : post?.photoUrl;
 
   function handleSubmit(event) {
     event.preventDefault();
 
-    const newPost = {
-      id: Date.now(),
-      author: "Shohei",
-      rank: 17,
+    const fields = {
       title: title,
       caption: caption,
-      time: "Just now",
-      location: "",
-      hasPhoto: Boolean(photo),
-      photoUrl: photo ? URL.createObjectURL(photo) : null,
+      hasPhoto: Boolean(photoPreview),
+      photoUrl: photoPreview || null,
       activity: activity,
       duration: duration ? `${duration} min` : "",
       calories: calories ? `${calories} kcal` : "",
@@ -34,13 +49,31 @@ function MakePost({ groups, initialGroupId, onBack, onCreatePost }) {
       groupId: audience === "everyone" ? null : Number(audience),
     };
 
-    onCreatePost(newPost);
+    if (post) {
+      // An untouched duration keeps its original text and points.
+      const unchanged = duration === toMinutes(post.duration);
+      onUpdatePost({
+        ...post,
+        ...fields,
+        ...(unchanged && { duration: post.duration, points: post.points }),
+      });
+      return;
+    }
+
+    onCreatePost({
+      ...fields,
+      id: Date.now(),
+      author: "Shohei",
+      rank: 17,
+      time: "Just now",
+      location: "",
+    });
   }
 
   return (
     <main className="page make-post">
       <PageHeader
-        title="Make Post"
+        title={post ? "Edit Post" : "Make Post"}
         action={
           <button
             className="make-post__back"
@@ -135,10 +168,10 @@ function MakePost({ groups, initialGroupId, onBack, onCreatePost }) {
               onChange={(event) => setPhoto(event.target.files[0] || null)}
             />
 
-            {photo ? (
+            {photoPreview ? (
               <img
                 className="make-post__preview"
-                src={URL.createObjectURL(photo)}
+                src={photoPreview}
                 alt="Selected workout"
               />
             ) : (
@@ -151,7 +184,7 @@ function MakePost({ groups, initialGroupId, onBack, onCreatePost }) {
         </div>
 
         <button className="make-post__submit" type="submit">
-          Post
+          {post ? "Save Changes" : "Post"}
         </button>
       </form>
     </main>

@@ -20,6 +20,8 @@ const users = [
   { id: 6, name: "Briggs", points: 82000, isFriend: true },
 ];
 
+const medals = ["🥇", "🥈", "🥉"];
+
 const friends = [5, 6, 4, 3].map((id) =>
   users.find((user) => user.id === id)
 );
@@ -270,7 +272,7 @@ function Leaderboard({
                     <span className="leaderboard__rank">{index + 1}</span>
                     <img src={avatar} alt="" />
                     <div>
-                      <p>{user.name}</p>
+                      <p>{user.name} {medals[index]}</p>
                       <p>{user.points.toLocaleString()} pts</p>
                     </div>
                   </li>
@@ -378,7 +380,7 @@ function Leaderboard({
                       <span className="leaderboard__rank">{index + 1}</span>
                       <img src={avatar} alt="" />
                       <div>
-                        <p>{user.name}</p>
+                        <p>{user.name} {medals[index]}</p>
                         <p>{user.points.toLocaleString()} pts</p>
                       </div>
                     </li>
