@@ -1,8 +1,10 @@
 .home__add-workout {
   position: fixed;
-  bottom: calc(var(--navbar-height) + 30px);
+  bottom: calc(var(--navbar-height) + 16px);
   left: 50%;
   transform: translateX(-50%);
+  width: calc(100% - 32px);
+  max-width: calc(var(--app-width) - 32px);
   z-index: 1;
 }
 
@@ -52,6 +54,7 @@
   flex-direction: column;
   gap: 12px;
   margin: 24px;
+  padding-bottom: 84px;
 }
 
 .workout-history__item {
@@ -143,4 +146,80 @@
 
 .workout-history__menu button:hover {
   background: #fee2e2;
+}
+
+/* Home page introduction */
+
+.home__intro {
+  margin: 16px;
+  padding: 20px;
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  border-radius: var(--radius-lg);
+}
+
+.home__intro h2 {
+  margin: 0 0 8px;
+  color: inherit;
+  font-size: 22px;
+  font-weight: var(--font-weight-bold);
+}
+
+.home__intro p {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Workout summary */
+
+.home__summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 16px;
+}
+
+.home__summary-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+}
+
+.home__summary-card strong {
+  font-size: 28px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+}
+
+.home__summary-card span {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+/* Empty workout history */
+
+.workout-history__empty {
+  margin: 16px;
+  padding: 28px 20px;
+  text-align: center;
+  background: var(--color-surface-secondary);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.workout-history__empty h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  font-weight: var(--font-weight-semibold);
+}
+
+.workout-history__empty p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
 }

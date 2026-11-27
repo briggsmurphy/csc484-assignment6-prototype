@@ -141,9 +141,12 @@
 
 .social-post__photo {
   display: block;
-  width: 100%;
+  width: calc(100% - 32px);
   max-height: 320px;
   object-fit: cover;
+  margin: 12px auto;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.45);
 }
 
 .social-post__stats {
