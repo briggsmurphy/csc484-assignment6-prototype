@@ -1,25 +1,30 @@
 .page-header {
-  position: relative; /* not sticky; still anchors the absolute title/line */
-  height: 82px;
-  background: var(--color-bg);
-  border-bottom: 1px solid var(--color-ink); /* CSS border stays crisp; the scaled svg line blurred */
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  align-items: center;
+  height: 64px;
+  padding: 0 12px;
+  background: color-mix(in srgb, var(--color-surface) 92%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .page-header__title {
-  position: absolute;
-  top: 37px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 32px;
-  font-weight: 800;
+  margin: 0;
+  font-size: 20px;
+  font-weight: var(--font-weight-bold);
+  text-align: center;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .page-header__action {
-  position: absolute;
-  top: 37px; /* same top as the title */
-  left: 27px;
   display: flex;
   align-items: center;
-  height: 40px; /* title line height (32px * 1.25), so the icon centers on it */
+  justify-content: flex-start;
+  height: 36px;
 }
