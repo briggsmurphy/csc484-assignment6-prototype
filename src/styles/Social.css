@@ -44,7 +44,9 @@
   width: 100%;
   padding: 16px;
   background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
   text-align: left;
   font-family: inherit;
   cursor: pointer;
@@ -376,20 +378,38 @@
 .social__tabs {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 5px;
+  gap: 4px;
   margin-bottom: 22px;
   padding: 4px;
-  border-radius: var(--radius-md);
-  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-secondary);
 }
 
 .social__tab {
-  height: 42px;
-  background: #e5e7eb;
+  height: 40px;
+  background: transparent;
+  color: var(--color-text-secondary);
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-semibold);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-pill);
   cursor: pointer;
+}
+
+.social__new-post {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--color-primary-light);
+}
+
+.social__new-post img {
+  display: block;
+  width: 18px;
+  height: 18px;
 }
 
 .social__tab--active {

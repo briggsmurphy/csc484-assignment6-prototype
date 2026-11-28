@@ -4,12 +4,14 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
-  width: var(--app-width);
-  max-width: 100%;
+  width: 100%;
+  max-width: var(--app-width);
   height: var(--navbar-height);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  box-shadow: 0 -6px 18px rgba(20, 37, 27, 0.06);
 }
 
 .navbar__tab {
@@ -18,48 +20,44 @@
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  padding-top: 16px;
+  padding-top: 14px;
+  color: var(--color-text-secondary);
   font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
 }
 
 .navbar__tab--active {
-  background: #e6f7ec;
   color: var(--color-primary-dark);
+  font-weight: var(--font-weight-semibold);
 }
 
-/* recolor: slide the img out of the clipped box and drop a green copy of its shape back in */
-.navbar__tab--active .navbar__icon {
-  overflow: hidden;
-}
-
-.navbar__tab--active .navbar__icon img {
-  transform: translateX(-100%);
-  filter: drop-shadow(28px 0 0 var(--color-primary-dark));
+.navbar__tab--active::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 22%;
+  right: 22%;
+  height: 3px;
+  border-radius: 0 0 4px 4px;
+  background: var(--color-primary);
 }
 
 .navbar__icon {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
 }
 
 .navbar__icon img {
   display: block;
   width: 100%;
   height: 100%;
+  opacity: 0.55;
 }
 
-.navbar__divider {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-}
-
-
-/* rotated divider is as long as its natural width, so match the bar height */
-.navbar__divider img {
-  width: var(--navbar-height);
+.navbar__tab--active .navbar__icon img {
+  opacity: 1;
+  filter: brightness(0) saturate(100%) invert(27%) sepia(48%) saturate(900%) hue-rotate(100deg);
 }

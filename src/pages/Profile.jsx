@@ -4,7 +4,13 @@ import PageHeader from "../components/PageHeader";
 import profileImage from "../assets/figma/profile-circle.svg";
 import "../styles/Profile.css";
 
-function Profile({ currentUser, onUpdateProfile }) {
+function Profile({
+  currentUser,
+  onUpdateProfile,
+  posts = [],
+  workouts = [],
+  groups = [],
+}) {
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState(currentUser.name);
 
@@ -65,6 +71,25 @@ function Profile({ currentUser, onUpdateProfile }) {
           <>
             <h2 className="profile__name">{currentUser.name}</h2>
             <p className="profile__school">{currentUser.school}</p>
+
+            <div className="profile__stats">
+              <div>
+                <strong>{workouts.length}</strong>
+                <span>Workouts</span>
+              </div>
+              <div>
+                <strong>
+                  {posts.filter((post) => post.authorId === currentUser.id).length}
+                </strong>
+                <span>Posts</span>
+              </div>
+              <div>
+                <strong>
+                  {groups.filter((group) => group.members?.includes(currentUser.id)).length}
+                </strong>
+                <span>Groups</span>
+              </div>
+            </div>
 
             <button
               className="profile__edit"
