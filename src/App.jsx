@@ -1,22 +1,307 @@
-import { useState } from 'react'
-import './App.css'
+
+import { useEffect, useState } from "react";
+import "./App.css";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Social from "./pages/Social";
 import Leaderboard from "./pages/Leaderboard";
 import Profile from "./pages/Profile";
+import MakePost from "./pages/MakePost";
+
+const startingPosts = [
+  {
+    id: 1,
+    author: "Shohei",
+    authorId: 3,
+    rank: 17,
+    title: "Chest Day",
+    caption: "",
+    time: "Today at 12:09 AM",
+    location: "Rec Center",
+    hasPhoto: true,
+    activity: "strength training",
+    duration: "1h 31m",
+    calories: "500 kcal",
+    points: 20,
+  },
+  {
+    id: 2,
+    author: "Mookie",
+    authorId: 2,
+    rank: 50,
+    title: "IM Soccer Game",
+    caption: "",
+    time: "Yesterday at 7:30 PM",
+    location: "Lower Sports Field",
+    hasPhoto: false,
+    activity: "sports",
+    duration: "1h",
+    calories: "500 kcal",
+    points: 50,
+  },
+];
+
+function loadPostInteractions() {
+  try {
+    const savedInteractions = localStorage.getItem("fitness-app-interactions");
+
+    if (savedInteractions) {
+      return JSON.parse(savedInteractions);
+    }
+  } catch (error) {
+    console.error("Could not load saved interactions:", error);
+  }
+
+  return {};
+}
 
 function App() {
   const [activePage, setActivePage] = useState("Home");
+  const [posts, setPosts] = useState(startingPosts);
+  const [postInteractions, setPostInteractions] = useState(
+    loadPostInteractions
+  );
+  const [workouts, setWorkouts] = useState([]);
+  const [groups, setGroups] = useState([]);
+  const [selectedGroupId, setSelectedGroupId] = useState(null);
+  const [postGroupId, setPostGroupId] = useState(null);
+  const [editingPost, setEditingPost] = useState(null);
+  const [leaderboardTab, setLeaderboardTab] = useState("Global");
+  const [filterBy, setFilterBy] = useState("Cal Poly Students");
+
+  const [currentUser, setCurrentUser] = useState({
+    id: 3,
+    name: "Shohei",
+    school: "Cal Poly",
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(
+        "fitness-app-interactions",
+        JSON.stringify(postInteractions)
+      );
+    } catch (error) {
+      console.error("Could not save interactions:", error);
+    }
+  }, [postInteractions]);
+
+  function handleLikePost(postId) {
+    const post = posts.find((post) => post.id === postId);
+
+    setPostInteractions((currentInteractions) => {
+      const currentInteraction = currentInteractions[postId] || {
+        likes: post?.likes || 0,
+        likedBy: post?.likedBy || [],
+        comments: post?.comments || [],
+      };
+
+      const alreadyLiked = currentInteraction.likedBy.includes(
+        currentUser.id
+      );
+
+      const updatedLikedBy = alreadyLiked
+        ? currentInteraction.likedBy.filter(
+            (userId) => userId !== currentUser.id
+          )
+        : [...currentInteraction.likedBy, currentUser.id];
+
+      return {
+        ...currentInteractions,
+        [postId]: {
+          ...currentInteraction,
+          likedBy: updatedLikedBy,
+          likes: Math.max(
+            0,
+            currentInteraction.likes + (alreadyLiked ? -1 : 1)
+          ),
+        },
+      };
+    });
+  }
+
+  function handleAddComment(postId, comment) {
+    const post = posts.find((post) => post.id === postId);
+
+    setPostInteractions((currentInteractions) => {
+      const currentInteraction = currentInteractions[postId] || {
+        likes: post?.likes || 0,
+        likedBy: post?.likedBy || [],
+        comments: post?.comments || [],
+      };
+
+      return {
+        ...currentInteractions,
+        [postId]: {
+          ...currentInteraction,
+          comments: [...currentInteraction.comments, comment],
+        },
+      };
+    });
+  }
+
+  function handleCreatePost(post) {
+    const newPost = {
+      ...post,
+      author: currentUser.name,
+      authorId: currentUser.id,
+    };
+
+    setPosts((currentPosts) => [newPost, ...currentPosts]);
+    setActivePage("Social");
+  }
+
+  function handleUpdatePost(updatedPost) {
+    setPosts((currentPosts) =>
+      currentPosts.map((post) =>
+        post.id === updatedPost.id && post.authorId === currentUser.id
+          ? updatedPost
+          : post
+      )
+    );
+    setActivePage("Social");
+  }
+
+  function handleDeletePost(postId) {
+    setPosts((currentPosts) =>
+      currentPosts.filter(
+        (post) => post.id !== postId || post.authorId !== currentUser.id
+      )
+    );
+  }
+
+  function handleCreateGroup(newGroup) {
+    setGroups((currentGroups) => [...currentGroups, newGroup]);
+  }
+
+  function handleDeleteGroup(groupId) {
+    const group = groups.find((group) => group.id === groupId);
+
+    if (!group || group.creatorId !== currentUser.id) {
+      return;
+    }
+
+    setGroups((currentGroups) =>
+      currentGroups.filter((group) => group.id !== groupId)
+    );
+
+    setSelectedGroupId((currentId) =>
+      currentId === groupId ? null : currentId
+    );
+
+    setFilterBy((currentFilter) =>
+      currentFilter === `group-${groupId}`
+        ? "Cal Poly Students"
+        : currentFilter
+    );
+  }
+
+  function handleRemoveGroupMember(groupId, memberId) {
+    setGroups((currentGroups) =>
+      currentGroups.map((group) =>
+        group.id === groupId
+          ? {
+              ...group,
+              members: group.members.filter((id) => id !== memberId),
+            }
+          : group
+      )
+    );
+  }
+
+  function handleUpdateProfile(updatedProfile) {
+    setCurrentUser((currentUser) => ({
+      ...currentUser,
+      ...updatedProfile,
+    }));
+
+    setPosts((currentPosts) =>
+      currentPosts.map((post) =>
+        post.authorId === currentUser.id
+          ? { ...post, author: updatedProfile.name }
+          : post
+      )
+    );
+  }
+
+  function handleMakePost(groupId = null) {
+    setEditingPost(null);
+    setPostGroupId(groupId);
+    setActivePage("MakePost");
+  }
+
+  function handleEditPost(post) {
+    setEditingPost(post);
+    setActivePage("MakePost");
+  }
 
   return (
     <>
-      {activePage === "Home" && <Home />}
-      {activePage === "Social" && <Social />}
-      {activePage === "Leaderboard" && <Leaderboard />}
-      {activePage === "Profile" && <Profile />}
+      {activePage === "Home" && (
+        <Home
+          workouts={workouts}
+          setWorkouts={setWorkouts}
+        />
+      )}
 
-      <Navbar activePage={activePage} setActivePage={setActivePage} />
+      {activePage === "Social" && (
+        <Social
+          posts={posts}
+          postInteractions={postInteractions}
+          groups={groups}
+          selectedGroupId={selectedGroupId}
+          currentUserId={currentUser.id}
+          onSelectGroup={setSelectedGroupId}
+          onBackToGroups={() => setSelectedGroupId(null)}
+          onMakePost={handleMakePost}
+          onCreateGroup={handleCreateGroup}
+          onEditPost={handleEditPost}
+          onDeletePost={handleDeletePost}
+          onLikePost={handleLikePost}
+          onAddComment={handleAddComment}
+          onRemoveGroupMember={handleRemoveGroupMember}
+          onDeleteGroup={handleDeleteGroup}
+        />
+      )}
+
+      {activePage === "MakePost" && (
+        <MakePost
+          groups={groups}
+          initialGroupId={postGroupId}
+          post={editingPost}
+          onBack={() => setActivePage("Social")}
+          onCreatePost={handleCreatePost}
+          onUpdatePost={handleUpdatePost}
+        />
+      )}
+
+      {activePage === "Leaderboard" && (
+        <Leaderboard
+          groups={groups}
+          activeTab={leaderboardTab}
+          setActiveTab={setLeaderboardTab}
+          filterBy={filterBy}
+          setFilterBy={setFilterBy}
+          currentUserId={currentUser.id}
+          onCreateGroup={handleCreateGroup}
+          onDeleteGroup={handleDeleteGroup}
+        />
+      )}
+
+      {activePage === "Profile" && (
+        <Profile
+          currentUser={currentUser}
+          onUpdateProfile={handleUpdateProfile}
+          posts={posts}
+          workouts={workouts}
+          groups={groups}
+        />
+      )}
+
+      <Navbar
+        activePage={activePage === "MakePost" ? "Social" : activePage}
+        setActivePage={setActivePage}
+      />
     </>
   );
 }
